@@ -1,0 +1,48 @@
+{
+  "games": [
+    {
+      "title": "Nova the Squirrel",
+      "file": "nova-the-squirrel.nes",
+      "url": "https://github.com/NovaSquirrel/NovaTheSquirrel/releases/download/v1.0.6a/nova.nes",
+      "sha256": "e4780e90b9d1587489bfb797d2ca395be21371ea9262fa9f87f99324ec6960ab",
+      "credit": "NovaSquirrel, 2018",
+      "license": "GNU GPL v3",
+      "licenseFile": "https://raw.githubusercontent.com/NovaSquirrel/NovaTheSquirrel/master/LICENSE.txt",
+      "sourceUrl": "https://github.com/NovaSquirrel/NovaTheSquirrel",
+      "hint": "A platformer that saves your progress."
+    },
+    {
+      "title": "Thwaite",
+      "file": "thwaite.nes",
+      "url": "https://github.com/pinobatch/thwaite-nes/releases/download/v0.04/thwaite.nes",
+      "sha256": "a2df24d9c9f72e56c2fdc4c703becc47a5700ad0158da8208247635ebeb3779c",
+      "credit": "Damian Yerrick, 2011",
+      "license": "GNU GPL v3",
+      "licenseFile": "https://raw.githubusercontent.com/pinobatch/thwaite-nes/master/LICENSE.txt",
+      "sourceUrl": "https://github.com/pinobatch/thwaite-nes",
+      "hint": "Defend the towns from incoming missiles: aim the crosshair and fire."
+    },
+    {
+      "title": "Concentration Room",
+      "file": "concentration-room.nes",
+      "url": "https://github.com/pinobatch/croom-nes/releases/download/v0.02a/croom.nes",
+      "sha256": "2ce17df1ad66a8a0533c0a8739f5b5ebe275c264924bbe350c42c5ac0394f20e",
+      "credit": "Damian Yerrick, 2010",
+      "license": "GNU GPL v3",
+      "licenseFile": "https://raw.githubusercontent.com/pinobatch/croom-nes/master/LICENSE.txt",
+      "sourceUrl": "https://github.com/pinobatch/croom-nes",
+      "hint": "Turn the cards over two at a time and find the pairs."
+    },
+    {
+      "title": "240p Test Suite",
+      "file": "240p-test-suite.nes",
+      "url": "https://github.com/pinobatch/240p-test-mini/releases/download/v0.23/240pee.nes",
+      "sha256": "04f01d7372f66ea2befe325b9bd655a9fcc395a31fa46d9466286bb8f9d2e62e",
+      "credit": "Damian Yerrick, after Artemio Urbina's 240p Test Suite",
+      "license": "GNU GPL v2",
+      "licenseFile": "https://raw.githubusercontent.com/pinobatch/240p-test-mini/master/LICENSE",
+      "sourceUrl": "https://github.com/pinobatch/240p-test-mini",
+      "hint": "Test patterns for checking the picture and sound."
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.DS_Store
+
+# Cartridge images are never committed: free games and test ROMs are downloaded by scripts.
+roms/
+*.nes
+public/games/
+tests/fixtures/test-roms/

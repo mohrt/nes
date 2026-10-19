@@ -1,0 +1,456 @@
+:root {
+  /* Set from the frame size and the NES's pixel shape. */
+  --screen-aspect: 1.3061;
+  --screen-width: min(96vw, calc(68vh * var(--screen-aspect)));
+  --accent: #d9434a;
+  --accent-soft: #f0989c;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: #111;
+  color: #888;
+  font-family: system-ui, sans-serif;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  gap: 0.75rem;
+  padding: 1rem 0;
+  box-sizing: border-box;
+}
+
+.screen-frame {
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+#screen {
+  display: block;
+  width: var(--screen-width);
+  aspect-ratio: var(--screen-aspect);
+  image-rendering: pixelated;
+  outline: none;
+  background: #000;
+}
+
+.screen-frame:fullscreen {
+  align-items: center;
+  background: #000;
+}
+
+.screen-frame:fullscreen #screen {
+  width: min(100vw, calc(100vh * var(--screen-aspect)));
+}
+
+.paused-label,
+.empty-label {
+  display: none;
+  position: absolute;
+  top: 50%;
+  margin: 0;
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  background: rgb(0 0 0 / 70%);
+  color: #fff;
+  font-size: 1.2rem;
+  letter-spacing: 0.05em;
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.screen-frame.paused .paused-label,
+.screen-frame.empty .empty-label {
+  display: block;
+}
+
+.screen-frame.paused.empty .paused-label {
+  display: none;
+}
+
+#status {
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+.site-links,
+.emulator-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4rem 1.25rem;
+  font-size: 0.85rem;
+}
+
+.site-links a,
+.emulator-links a {
+  color: var(--accent-soft);
+  text-decoration: none;
+}
+
+.site-links a:hover,
+.site-links a:focus-visible,
+.emulator-links a:hover,
+.emulator-links a:focus-visible {
+  text-decoration: underline;
+}
+
+.emulator-links strong {
+  color: #ddd;
+  font-weight: 600;
+}
+
+/* Buttons and fields */
+
+button,
+select {
+  padding: 0.35rem 0.75rem;
+  border: 1px solid #555;
+  border-radius: 6px;
+  background: #2a2a2a;
+  color: #eee;
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+select {
+  max-width: 16rem;
+  padding: 0.35rem 0.4rem;
+}
+
+button:hover,
+button:focus-visible,
+select:focus-visible {
+  border-color: var(--accent) !important;
+  outline: none;
+}
+
+button:disabled,
+select:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+input[type='checkbox'],
+input[type='range'] {
+  accent-color: var(--accent);
+}
+
+/* Toolbar */
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  width: var(--screen-width);
+}
+
+.toolbar-group {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.toolbar-message {
+  font-size: 0.85rem;
+  color: #9ad284;
+}
+
+.toolbar-message.error {
+  color: #ff8a80;
+}
+
+/* Cartridge panel */
+
+.cart-panel {
+  width: var(--screen-width);
+  box-sizing: border-box;
+  padding: 1rem 1.25rem;
+  border: 2px dashed #555;
+  border-radius: 10px;
+  background: #1a1a1a;
+  color: #ccc;
+  text-align: center;
+  transition:
+    border-color 0.15s,
+    background-color 0.15s;
+}
+
+.cart-panel p {
+  margin: 0;
+}
+
+.cart-empty,
+.cart-loaded {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.cart-panel[data-state='empty'] .cart-empty,
+.cart-panel[data-state='loaded'] .cart-loaded {
+  display: flex;
+}
+
+.cart-panel[data-state='loaded'] {
+  border-style: solid;
+  border-color: #3d3d3d;
+}
+
+.cart-title {
+  font-size: 1.05rem;
+  color: #eee;
+}
+
+.cart-file {
+  color: #888;
+}
+
+.cart-details {
+  font-size: 0.8rem;
+  color: #999;
+}
+
+.cart-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.battery-actions:not([hidden]) {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.battery-hint {
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.cart-drop-hint {
+  display: none;
+  font-size: 1.05rem;
+  color: #fff;
+}
+
+.cart-panel.drag-over {
+  border-style: solid;
+  border-color: var(--accent);
+  background: #2a1a1b;
+}
+
+.cart-panel.drag-over > :not(.cart-drop-hint) {
+  display: none !important;
+}
+
+.cart-panel.drag-over .cart-drop-hint {
+  display: block;
+}
+
+.zip-files:not([hidden]) {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.75rem !important;
+  font-size: 0.85rem;
+  color: #aaa;
+}
+
+.bundled-games-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.75rem !important;
+  font-size: 0.85rem;
+  color: #aaa;
+}
+
+.game-info {
+  margin-top: 0.35rem !important;
+  font-size: 0.8rem;
+  color: #999;
+}
+
+.game-info a {
+  color: var(--accent-soft);
+}
+
+.zip-buttons {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.zip-buttons button.current {
+  border-color: var(--accent);
+}
+
+.cart-message:not(:empty) {
+  margin-top: 0.6rem !important;
+  color: #ff8a80;
+  font-size: 0.9rem;
+}
+
+.cart-message.warning {
+  color: #c9a227;
+}
+
+/* Controls and the on-screen controller */
+
+.controls {
+  width: var(--screen-width);
+  box-sizing: border-box;
+  color: #bbb;
+  font-size: 0.9rem;
+}
+
+.controls-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem 1.5rem;
+}
+
+.controls label {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.controls input[type='range'] {
+  width: 6rem;
+}
+
+.sound-hint {
+  color: #c9a227;
+}
+
+/* Laid out like the NES controller: D-pad, Select and Start, then B and A. */
+.pad {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+  margin: 0.75rem auto 0;
+  padding: 0.9rem 1.4rem;
+  max-width: 30rem;
+  border-radius: 10px;
+  background: linear-gradient(#c9c9c9, #a9a9a9);
+  box-shadow: inset 0 0 0 1px #777;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+}
+
+.pad[hidden] {
+  display: none;
+}
+
+.pad-dpad {
+  position: relative;
+  flex: none;
+  width: 7rem;
+  height: 7rem;
+  touch-action: none;
+  cursor: pointer;
+}
+
+.pad-dpad::before,
+.pad-dpad::after {
+  content: '';
+  position: absolute;
+  border-radius: 4px;
+  background: #1e1e1e;
+}
+
+.pad-dpad::before {
+  inset: 33% 0;
+}
+
+.pad-dpad::after {
+  inset: 0 33%;
+}
+
+.pad-dpad.active::before,
+.pad-dpad.active::after {
+  background: #3b3b3b;
+}
+
+.pad-middle {
+  display: flex;
+  gap: 0.6rem;
+  padding: 0.6rem;
+  border-radius: 8px;
+  background: #2b2b2b;
+}
+
+.pad-middle button {
+  padding: 0.35rem 0.6rem;
+  border-color: #111;
+  border-radius: 999px;
+  background: #555;
+  color: #ddd;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  touch-action: none;
+}
+
+.pad-face {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.pad-face button {
+  width: 3.4rem;
+  height: 3.4rem;
+  padding: 0;
+  border-color: #6d0f07;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #ff5d55, #b0171c);
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  touch-action: none;
+}
+
+.pad button.active {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: #111;
+}
+
+.gamepad-status {
+  margin: 0.5rem 0 0;
+  color: #9ad284;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.controls-hint {
+  margin: 0.5rem 0 0;
+  color: #777;
+  font-size: 0.8rem;
+  text-align: center;
+}

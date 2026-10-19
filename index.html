@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#111111" />
+    <title>NES</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <main>
+      <div class="screen-frame">
+        <canvas id="screen" width="256" height="240" tabindex="0" aria-label="NES screen"></canvas>
+        <p class="paused-label">Paused</p>
+        <p class="empty-label">Insert a cartridge to switch on</p>
+      </div>
+
+      <section id="toolbar" class="toolbar" aria-label="Console">
+        <span class="toolbar-group">
+          <button type="button" data-action="pause" title="P or the Pause key">Pause</button>
+          <button type="button" data-action="reset" title="The console's reset button: restarts the game">Reset</button>
+          <button type="button" data-action="power" title="Switch the console off and on again">Power cycle</button>
+          <button type="button" data-action="fullscreen" title="Esc leaves full screen">Full screen</button>
+          <select name="tv" aria-label="TV system" title="Auto goes by the cartridge's header or file name">
+            <option value="auto" selected>TV: Auto</option>
+            <option value="ntsc">NTSC (60 Hz)</option>
+            <option value="pal">PAL (50 Hz)</option>
+          </select>
+        </span>
+        <span class="toolbar-group">
+          <button type="button" data-action="save-state" title="Save the whole console, to come back to later">
+            Save state
+          </button>
+          <select name="state-slot" aria-label="Save states"></select>
+          <button type="button" data-action="load-state">Load</button>
+          <button type="button" data-action="delete-state">Delete</button>
+          <button type="button" data-action="export-state" title="Download the current state as a file">Export</button>
+          <button type="button" data-action="import-state">Import...</button>
+        </span>
+        <span class="toolbar-message" role="status"></span>
+        <input type="file" name="state-file" accept=".nesstate" hidden />
+      </section>
+
+      <section id="cart-panel" class="cart-panel" data-state="empty" aria-label="Cartridge slot">
+        <div class="cart-empty">
+          <p class="cart-title">Drop a .nes or .zip cartridge image here</p>
+          <button type="button" data-action="choose">Choose file...</button>
+        </div>
+        <div class="cart-loaded">
+          <p class="cart-title"><span class="cart-name"></span> <span class="cart-file"></span></p>
+          <p class="cart-details"></p>
+          <div class="cart-actions">
+            <button type="button" data-action="choose">Change cartridge</button>
+            <button type="button" data-action="eject">Eject</button>
+            <span class="battery-actions" hidden>
+              <button type="button" data-action="export-save" title="The game's own save (its battery-backed RAM)">
+                Download .sav
+              </button>
+              <span class="battery-hint">or drop a .sav file to use one</span>
+            </span>
+          </div>
+        </div>
+        <p class="zip-files" hidden>In this zip: <span class="zip-buttons"></span></p>
+        <div class="bundled-games" hidden>
+          <p class="bundled-games-row">
+            Free games:
+            <select name="bundled-game" aria-label="Free games"></select>
+            <button type="button" data-action="play-game">Play</button>
+          </p>
+          <p class="game-info"></p>
+        </div>
+        <p class="cart-drop-hint">Release to insert</p>
+        <p class="cart-message" role="status"></p>
+        <input type="file" name="cart-file" accept=".nes,.zip,.nesstate,.sav" hidden />
+      </section>
+
+      <section id="controls" class="controls" aria-label="Controllers">
+        <div class="controls-row">
+          <label><input type="checkbox" name="show-pad" /> On-screen controller</label>
+          <label>
+            for
+            <select name="pad-player" aria-label="Which controller the on-screen controller presses">
+              <option value="0" selected>Player 1</option>
+              <option value="1">Player 2</option>
+            </select>
+          </label>
+          <label title="TVs hid the top and bottom 8 lines, and many games leave junk there">
+            <input type="checkbox" name="crop-overscan" checked /> Hide overscan
+          </label>
+          <label><input type="checkbox" name="sound" checked /> Sound</label>
+          <label>
+            Volume
+            <input type="range" name="volume" min="0" max="1" step="0.05" value="0.8" />
+          </label>
+          <span class="sound-hint" hidden>Click or press a key to start sound</span>
+        </div>
+        <div id="pad" class="pad" hidden>
+          <div class="pad-dpad" role="group" aria-label="D-pad"></div>
+          <div class="pad-middle">
+            <button type="button" data-button="Select">Select</button>
+            <button type="button" data-button="Start">Start</button>
+          </div>
+          <div class="pad-face">
+            <button type="button" data-button="B">B</button>
+            <button type="button" data-button="A">A</button>
+          </div>
+        </div>
+        <p class="gamepad-status" aria-live="polite"></p>
+        <p class="controls-hint">
+          Keyboard (player 1): arrow keys for the D-pad, X for A, Z for B, Enter for Start and Shift for Select; S
+          and A are turbo A and B. Gamepads work as soon as you press a button; the first is player 1, the second
+          player 2. The bottom and right face buttons are B and A, the other two turbo B and turbo A.
+        </p>
+      </section>
+
+      <p id="status">Starting...</p>
+      <nav class="emulator-links" aria-label="Emulators">
+        Emulators:
+        <a href="https://mohrt.github.io/sz81/">Timex Sinclair 1000</a>
+        <a href="https://mohrt.github.io/c64/">Commodore 64</a>
+        <a href="https://mohrt.github.io/atari2600/">Atari 2600</a>
+        <a href="https://mohrt.github.io/colecovision/">ColecoVision</a>
+        <strong aria-current="page">NES</strong>
+      </nav>
+      <footer class="site-links">
+        <a href="https://mohrt.com/">mohrt.com</a>
+        <a href="https://github.com/mohrt/nes" target="_blank" rel="noopener">Source on GitHub</a>
+        <a href="https://x.com/mohrt" target="_blank" rel="noopener">@mohrt on X</a>
+      </footer>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
