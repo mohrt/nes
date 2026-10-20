@@ -43,6 +43,28 @@
       "licenseFile": "https://raw.githubusercontent.com/pinobatch/240p-test-mini/master/LICENSE",
       "sourceUrl": "https://github.com/pinobatch/240p-test-mini",
       "hint": "Test patterns for checking the picture and sound."
+    },
+    {
+      "title": "Rainfall",
+      "file": "rainfall.nes",
+      "url": "https://raw.githubusercontent.com/bbossa/rainfall_nes/84350fd9ff4fe4e454eb5f44b4e1ace428346301/bin/rainfall.nes",
+      "sha256": "8f1b56d939d1d551ac8e639a18833053f4b1865af40420d30dc73dfa5110d4e7",
+      "credit": "bbossa",
+      "license": "Public domain (CC0), with the FamiStudio sound engine",
+      "licenseFile": "https://raw.githubusercontent.com/bbossa/rainfall_nes/84350fd9ff4fe4e454eb5f44b4e1ace428346301/LICENSE",
+      "sourceUrl": "https://github.com/bbossa/rainfall_nes",
+      "hint": "Dodge the falling raindrops."
+    },
+    {
+      "title": "2048",
+      "file": "2048.nes",
+      "url": "https://raw.githubusercontent.com/mmuszkow/2048-nes/d0b2841384b7881619e53863d5bb7a27263ccccd/2048.nes",
+      "sha256": "2769543d0b5bb44ff38c2f3d259b01c3a93868a0607fb57f43fd8986f5f8fd0f",
+      "credit": "mmuszkow, with Shiru's neslib and FamiTone2",
+      "license": "Public domain (Unlicense)",
+      "licenseFile": "https://raw.githubusercontent.com/mmuszkow/2048-nes/d0b2841384b7881619e53863d5bb7a27263ccccd/LICENSE",
+      "sourceUrl": "https://github.com/mmuszkow/2048-nes",
+      "hint": "Slide the tiles with the D-pad; equal tiles merge."
     }
   ]
 }
