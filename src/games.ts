@@ -60,7 +60,8 @@ export function parseGameManifest(json: unknown): BundledGame[] {
 /** The site's game list, or none if it has no (valid) manifest. */
 export async function loadGameManifest(baseUrl: string): Promise<BundledGame[]> {
   try {
-    const response = await fetch(`${baseUrl}${GAMES_DIR}index.json`);
+    // Hosts such as GitHub Pages let browsers reuse files for a while; the list should show new games straight away.
+    const response = await fetch(`${baseUrl}${GAMES_DIR}index.json`, { cache: 'no-cache' });
     if (!response.ok) return [];
     return parseGameManifest(await response.json());
   } catch {
