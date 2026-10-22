@@ -7,6 +7,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { gunzipSync } from 'node:zlib';
+import { readZip } from '../src/cart/zip.ts';
 
 const scriptDir = dirname(fileURLToPath(import.meta.url));
 const outDir = join(scriptDir, '..', 'public', 'games');
@@ -20,20 +21,29 @@ async function download(url) {
 
 const sha256 = (bytes) => createHash('sha256').update(bytes).digest('hex');
 
+async function fromZip(zip, name) {
+  const entry = readZip(new Uint8Array(zip)).find((candidate) => candidate.name === name);
+  if (!entry) throw new Error(`the zip has no ${name}`);
+  return Buffer.from(await entry.read());
+}
+
 await mkdir(outDir, { recursive: true });
 const games = [];
 for (const game of catalog.games) {
   try {
-    let bytes = await download(game.url);
+    const downloaded = await download(game.url);
+    let bytes = downloaded;
     if (game.gzip) bytes = gunzipSync(bytes);
+    if (game.zipEntry) bytes = await fromZip(downloaded, game.zipEntry);
     if (sha256(bytes) !== game.sha256) throw new Error('the download has changed (checksum mismatch)');
     await writeFile(join(outDir, game.file), bytes);
 
     let licenseUrl = game.licenseUrl;
-    if (game.licenseFile) {
+    if (game.licenseFile || game.licenseZipEntry) {
       // Licences such as MIT and GPL must be shipped with the copies.
       const licenseName = `${game.file}.license.txt`;
-      await writeFile(join(outDir, licenseName), await download(game.licenseFile));
+      const license = game.licenseZipEntry ? await fromZip(downloaded, game.licenseZipEntry) : await download(game.licenseFile);
+      await writeFile(join(outDir, licenseName), license);
       licenseUrl = `games/${licenseName}`;
     }
     games.push({

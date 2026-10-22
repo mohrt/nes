@@ -65,6 +65,40 @@
       "licenseFile": "https://raw.githubusercontent.com/mmuszkow/2048-nes/d0b2841384b7881619e53863d5bb7a27263ccccd/LICENSE",
       "sourceUrl": "https://github.com/mmuszkow/2048-nes",
       "hint": "Slide the tiles with the D-pad; equal tiles merge."
+    },
+    {
+      "title": "Ghosts and Graves",
+      "file": "ghosts-and-graves.nes",
+      "url": "https://github.com/AnthonyBongers/GhostsAndGraves/releases/download/release_1.0.3/Ghosts_And_Graves.nes",
+      "sha256": "3073ba7e0a80538a9260d7f41741dd338b8583d8f4207d62316f7684c1096619",
+      "credit": "Anthony Bongers, 2024",
+      "license": "Public domain (Unlicense)",
+      "licenseFile": "https://raw.githubusercontent.com/AnthonyBongers/GhostsAndGraves/release_1.0.3/LICENSE",
+      "sourceUrl": "https://github.com/AnthonyBongers/GhostsAndGraves",
+      "hint": "700 logic puzzles: put a ghost next to each grave, with no two ghosts touching. Saves your progress."
+    },
+    {
+      "title": "Video Poker",
+      "file": "video-poker.nes",
+      "url": "https://github.com/freem/ggjam_videopoker/releases/download/v1.0/ggjam_videopoker.zip",
+      "zipEntry": "ggjam_videopoker.nes",
+      "sha256": "850bde73011b2d4af9dca0025a69f6cf1f9e2603f3a7e79cff1c586f719fccee",
+      "credit": "freem, 2025, with FamiTone5 by nesdoug and Shiru",
+      "license": "Public domain (Unlicense), with the MIT-licensed bin2dec by Quietust and blargg",
+      "licenseZipEntry": "ggjam_videopoker.txt",
+      "sourceUrl": "https://github.com/freem/ggjam_videopoker",
+      "hint": "Jacks or better: bet with Up/Down, hold cards with A, draw with Start."
+    },
+    {
+      "title": "Chase",
+      "file": "chase.nes",
+      "url": "https://raw.githubusercontent.com/Heathcode/chase/77e3e5efdc2cdc29575d4225c1ea6b735060f861/Chase.nes",
+      "sha256": "3b1e4abae716b4f819592e98034d3e33b6e765d5e9500b18ea8c8d9b886ccc08",
+      "credit": "Shiru, 2012, with his neslib and FamiTone",
+      "license": "Public domain",
+      "licenseUrl": "https://github.com/Heathcode/chase/blob/77e3e5efdc2cdc29575d4225c1ea6b735060f861/game.c#L1-L2",
+      "sourceUrl": "https://github.com/Heathcode/chase",
+      "hint": "Collect all the gems while dodging the enemies."
     }
   ]
 }
