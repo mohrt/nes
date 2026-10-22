@@ -1,3 +1,4 @@
+import { trackGameLoaded } from './analytics';
 import { AudioOutput } from './audio/audio-output';
 import type { Cartridge } from './cart/cartridge';
 import { createCartridge, mapperName } from './cart/create';
@@ -202,6 +203,7 @@ async function main(): Promise<void> {
         }
         const game = bundledGames.find((entry) => entry.file.split('/').pop() === chosen.name);
         await insertImage(media.image, fromZip ? `${chosen.name} from ${file.name}` : chosen.name, game?.title);
+        trackGameLoaded('nes', game?.title);
       },
       onGame: (index) => fetchGame(import.meta.env.BASE_URL, bundledGames[index]),
       onEject: eject,
