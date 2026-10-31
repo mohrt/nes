@@ -31,6 +31,18 @@
         <p class="empty-label">Insert a cartridge to switch on</p>
       </div>
 
+      <div id="pad" class="pad" hidden>
+        <div class="pad-dpad" role="group" aria-label="D-pad"></div>
+        <div class="pad-middle">
+          <button type="button" data-button="Select">Select</button>
+          <button type="button" data-button="Start">Start</button>
+        </div>
+        <div class="pad-face">
+          <button type="button" data-button="B">B</button>
+          <button type="button" data-button="A">A</button>
+        </div>
+      </div>
+
       <section id="toolbar" class="toolbar" aria-label="Console">
         <span class="toolbar-group">
           <button type="button" data-action="pause" title="P or the Pause key">Pause</button>
@@ -109,17 +121,6 @@
             <input type="range" name="volume" min="0" max="1" step="0.05" value="0.8" />
           </label>
           <span class="sound-hint" hidden>Click or press a key to start sound</span>
-        </div>
-        <div id="pad" class="pad" hidden>
-          <div class="pad-dpad" role="group" aria-label="D-pad"></div>
-          <div class="pad-middle">
-            <button type="button" data-button="Select">Select</button>
-            <button type="button" data-button="Start">Start</button>
-          </div>
-          <div class="pad-face">
-            <button type="button" data-button="B">B</button>
-            <button type="button" data-button="A">A</button>
-          </div>
         </div>
         <p class="gamepad-status" aria-live="polite"></p>
         <p class="controls-hint">

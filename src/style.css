@@ -352,7 +352,7 @@ input[type='range'] {
   justify-content: center;
   align-items: center;
   gap: 1.5rem;
-  margin: 0.75rem auto 0;
+  margin: 0 auto;
   padding: 0.9rem 1.4rem;
   max-width: 30rem;
   border-radius: 10px;
@@ -453,4 +453,14 @@ input[type='range'] {
   color: #777;
   font-size: 0.8rem;
   text-align: center;
+}
+
+@media (max-width: 900px) {
+  main {
+    justify-content: flex-start;
+  }
+
+  body:has(.pad:not([hidden])) {
+    --screen-width: min(96vw, calc((100dvh - 16rem) * var(--screen-aspect)));
+  }
 }
